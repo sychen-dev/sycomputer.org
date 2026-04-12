@@ -29,7 +29,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pb-32">
       {/* Background Image with Parallax */}
       <motion.div
         className="absolute inset-0 z-0"
@@ -48,7 +48,7 @@ const HeroSection = () => {
           priority
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/60 to-background/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/50 to-background/80 dark:from-background/30 dark:via-background/60 dark:to-background/90" />
         <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-secondary/10" />
       </motion.div>
 
@@ -71,9 +71,9 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6"
           >
-            <span className="block text-white drop-shadow-lg">成為合作夥伴</span>
+            <span className="block text-white dark:text-white drop-shadow-lg">成為合作夥伴</span>
             <motion.span
-              className="block text-xl sm:text-2xl md:text-3xl text-white/90 font-light mt-4"
+              className="block text-xl sm:text-2xl md:text-3xl text-white/90 dark:text-white/90 font-light mt-4"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 0.8 }}
@@ -86,10 +86,10 @@ const HeroSection = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 1 }}
-            className="text-lg sm:text-xl text-white/80 mb-10 max-w-2xl mx-auto"
+            className="text-lg sm:text-xl text-white/80 dark:text-white/80 mb-10 max-w-2xl mx-auto"
           >
             短期需要電腦嗎？可以用租的。
-            <span className="block mt-2 text-sm text-white/60">
+            <span className="block mt-2 text-sm text-white/60 dark:text-white/60">
               Need a computer in the short term? Can be rented.
             </span>
           </motion.p>
@@ -98,13 +98,13 @@ const HeroSection = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 1.2 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            className="flex flex-col sm:flex-row gap-6 justify-center mb-12"
           >
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={scrollToAbout}
-              className="group inline-flex items-center justify-center gap-2 bg-white text-foreground hover:bg-white/90 px-8 py-4 rounded-full font-semibold text-lg hover-lift transition-all"
+              className="group inline-flex items-center justify-center gap-2 bg-primary text-white hover:bg-primary-dark px-8 py-4 rounded-full font-semibold text-lg hover-lift transition-all shadow-lg"
             >
               {t('button.learnMore')}
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -114,7 +114,7 @@ const HeroSection = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               href="#contact"
-              className="inline-flex items-center justify-center gap-2 border-2 border-white text-white hover:bg-white/10 px-8 py-4 rounded-full font-semibold text-lg transition-all"
+              className="inline-flex items-center justify-center gap-2 border-2 border-primary text-primary hover:bg-primary/10 px-8 py-4 rounded-full font-semibold text-lg transition-all"
             >
               {t('button.consultNow')}
             </motion.a>
@@ -131,7 +131,7 @@ const HeroSection = () => {
           <button
             onClick={scrollToAbout}
             aria-label="Scroll down"
-            className="flex flex-col items-center text-white/60 hover:text-white transition-colors"
+            className="flex flex-col items-center text-primary/70 hover:text-primary dark:text-white/60 dark:hover:text-white transition-colors"
           >
             <span className="text-sm mb-2">{t('common.exploreMore')}</span>
             <motion.div
