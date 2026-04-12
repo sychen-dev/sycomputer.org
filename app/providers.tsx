@@ -11,7 +11,7 @@ interface ProvidersProps {
 
 export function Providers({ children }: ProvidersProps) {
   return (
-    <ThemeProvider defaultTheme="light">
+    <ThemeProvider defaultTheme="light" storageKey="app-theme">
       <LanguageProvider defaultLanguage="zh">
         {children}
       </LanguageProvider>
