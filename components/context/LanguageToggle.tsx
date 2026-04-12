@@ -7,15 +7,17 @@ import { useTheme } from './index';
 export const LanguageToggle: React.FC = () => {
   const { language, toggleLanguage, t } = useLanguage();
   const { theme } = useTheme();
+  const buttonRef = React.useRef<HTMLButtonElement>(null);
 
   // 根據當前主題和語言設定樣式
   const buttonClasses = `
     px-3 py-2 rounded-lg transition-all duration-300
     ${theme === 'dark'
-      ? 'bg-gray-800 text-gray-200 hover:bg-gray-700 border-gray-700'
-      : 'bg-gray-100 text-gray-800 hover:bg-gray-200 border-gray-300'
+      ? 'bg-gray-800 text-gray-200 hover:bg-gray-700 border-gray-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900'
+      : 'bg-gray-100 text-gray-800 hover:bg-gray-200 border-gray-300 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-white'
     }
     flex items-center justify-center gap-2 min-w-[100px] border font-medium
+    focus:outline-none focus:ring-opacity-50
   `;
 
   const iconClasses = `
@@ -23,12 +25,32 @@ export const LanguageToggle: React.FC = () => {
     ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}
   `;
 
+  // 處理鍵盤事件
+  const handleKeyDown = React.useCallback((event: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      toggleLanguage();
+    }
+  }, [toggleLanguage]);
+
+  // 處理焦點管理
+  const handleClick = React.useCallback(() => {
+    toggleLanguage();
+    // 切換後保持焦點在按鈕上
+    buttonRef.current?.focus();
+  }, [toggleLanguage]);
+
   return (
     <button
-      onClick={toggleLanguage}
+      ref={buttonRef}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
       className={buttonClasses}
       aria-label={t('language.switch')}
       title={t('language.switch')}
+      aria-pressed={language === 'zh'}
+      role="switch"
+      tabIndex={0}
     >
       {/* 中文圖示 */}
       {language === 'zh' ? (
@@ -69,12 +91,33 @@ export const LanguageToggle: React.FC = () => {
 // 簡單版本 - 只有文字
 export const SimpleLanguageToggle: React.FC = () => {
   const { language, toggleLanguage, t } = useLanguage();
+  const buttonRef = React.useRef<HTMLButtonElement>(null);
+
+  // 處理鍵盤事件
+  const handleKeyDown = React.useCallback((event: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      toggleLanguage();
+    }
+  }, [toggleLanguage]);
+
+  // 處理焦點管理
+  const handleClick = React.useCallback(() => {
+    toggleLanguage();
+    // 切換後保持焦點在按鈕上
+    buttonRef.current?.focus();
+  }, [toggleLanguage]);
 
   return (
     <button
-      onClick={toggleLanguage}
-      className="px-3 py-1.5 rounded-md bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors"
+      ref={buttonRef}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      className="px-3 py-1.5 rounded-md bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
       aria-label={t('language.switch')}
+      aria-pressed={language === 'zh'}
+      role="switch"
+      tabIndex={0}
     >
       {language === 'zh' ? 'EN' : '中文'}
     </button>

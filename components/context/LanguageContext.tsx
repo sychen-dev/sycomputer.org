@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { createContext, useContext, useEffect, useState, useMemo, useCallback } from 'react';
+import { createContext, useContext, useEffect, useState, useMemo, useCallback, useRef } from 'react';
 
 export type Language = 'zh' | 'en';
 
@@ -13,28 +13,23 @@ interface TranslationDictionary {
   };
 }
 
-// 預設翻譯字典 - 可以從外部匯入或擴展
-const defaultTranslations: TranslationDictionary = {
-  // 導航欄
-  'nav.home': {
-    zh: '首頁',
-    en: 'Home'
+// 翻譯參數類型
+export type TranslationParams = Record<string, string | number>;
+
+// 基本核心翻譯字典 - 最小化 bundle
+const coreTranslations: TranslationDictionary = {
+  // 語言切換
+  'language.switch': {
+    zh: '切換語言',
+    en: 'Switch Language'
   },
-  'nav.about': {
-    zh: '關於',
-    en: 'About'
+  'language.zh': {
+    zh: '中文',
+    en: 'Chinese'
   },
-  'nav.services': {
-    zh: '服務',
-    en: 'Services'
-  },
-  'nav.portfolio': {
-    zh: '作品集',
-    en: 'Portfolio'
-  },
-  'nav.contact': {
-    zh: '聯絡',
-    en: 'Contact'
+  'language.en': {
+    zh: '英文',
+    en: 'English'
   },
 
   // 主題切換
@@ -51,60 +46,6 @@ const defaultTranslations: TranslationDictionary = {
     en: 'Dark Mode'
   },
 
-  // 語言切換
-  'language.switch': {
-    zh: '切換語言',
-    en: 'Switch Language'
-  },
-  'language.zh': {
-    zh: '中文',
-    en: 'Chinese'
-  },
-  'language.en': {
-    zh: '英文',
-    en: 'English'
-  },
-
-  // 按鈕
-  'button.more': {
-    zh: '了解更多',
-    en: 'Learn More'
-  },
-  'button.view': {
-    zh: '查看詳情',
-    en: 'View Details'
-  },
-  'button.contact': {
-    zh: '聯絡我們',
-    en: 'Contact Us'
-  },
-  'button.submit': {
-    zh: '提交',
-    en: 'Submit'
-  },
-  'button.cancel': {
-    zh: '取消',
-    en: 'Cancel'
-  },
-
-  // 頁面標題
-  'title.welcome': {
-    zh: '歡迎來到我們的網站',
-    en: 'Welcome to Our Website'
-  },
-  'title.about': {
-    zh: '關於我們',
-    en: 'About Us'
-  },
-  'title.services': {
-    zh: '我們的服務',
-    en: 'Our Services'
-  },
-  'title.portfolio': {
-    zh: '作品展示',
-    en: 'Portfolio'
-  },
-
   // 通用文字
   'text.loading': {
     zh: '載入中...',
@@ -117,62 +58,6 @@ const defaultTranslations: TranslationDictionary = {
   'text.success': {
     zh: '操作成功',
     en: 'Operation successful'
-  },
-  'text.no_data': {
-    zh: '暫無數據',
-    en: 'No data available'
-  },
-
-  // Hero 區域
-  'hero.title': {
-    zh: '創造卓越的數位體驗',
-    en: 'Creating Exceptional Digital Experiences'
-  },
-  'hero.subtitle': {
-    zh: '我們提供專業的網站開發、UI/UX設計和技術解決方案',
-    en: 'We provide professional web development, UI/UX design, and technical solutions'
-  },
-
-  // 關於區域
-  'about.title': {
-    zh: '關於我們',
-    en: 'About Us'
-  },
-  'about.description': {
-    zh: '我們是一支專業的技術團隊，專注於為客戶提供高品質的數位解決方案。',
-    en: 'We are a professional technical team focused on providing high-quality digital solutions for our clients.'
-  },
-
-  // 服務區域
-  'service.web_dev': {
-    zh: '網站開發',
-    en: 'Web Development'
-  },
-  'service.ui_ux': {
-    zh: 'UI/UX 設計',
-    en: 'UI/UX Design'
-  },
-  'service.mobile': {
-    zh: '行動應用',
-    en: 'Mobile Applications'
-  },
-  'service.seo': {
-    zh: 'SEO 優化',
-    en: 'SEO Optimization'
-  },
-
-  // 頁腳
-  'footer.copyright': {
-    zh: '版權所有 © {year}',
-    en: 'Copyright © {year}'
-  },
-  'footer.privacy': {
-    zh: '隱私政策',
-    en: 'Privacy Policy'
-  },
-  'footer.terms': {
-    zh: '使用條款',
-    en: 'Terms of Use'
   }
 };
 
@@ -181,15 +66,22 @@ interface LanguageProviderProps {
   defaultLanguage?: Language;
   storageKey?: string;
   translations?: TranslationDictionary;
+  onError?: (error: TranslationError) => void;
+  loadTranslationsOnDemand?: boolean;
+  translationsModules?: Record<string, () => Promise<{ default: TranslationDictionary }>>;
 }
 
 interface LanguageContextType {
   language: Language;
   translations: TranslationDictionary;
-  t: (key: string, params?: Record<string, string | number>) => string;
+  t: (key: string, params?: TranslationParams) => string;
+  tSafe: (key: string, params?: TranslationParams) => { text: string; error?: TranslationError };
   toggleLanguage: () => void;
   setLanguage: (lang: Language) => void;
   addTranslations: (newTranslations: TranslationDictionary) => void;
+  loadTranslations: (moduleName: string) => Promise<void>;
+  isLoading: boolean;
+  error: TranslationError | null;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -246,44 +138,175 @@ const getBrowserLanguage = (): Language => {
   }
 };
 
-// 翻譯函數
+// HTML 實體編碼函數 - 防止 XSS
+const escapeHtml = (unsafe: string | number): string => {
+  if (typeof unsafe === 'number') {
+    return String(unsafe);
+  }
+
+  return unsafe
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+};
+
+// 安全的參數替換
+const safeParamReplace = (text: string, params?: TranslationParams): string => {
+  if (!params || Object.keys(params).length === 0) {
+    return text;
+  }
+
+  let result = text;
+
+  // 檢查是否存在有效的佔位符
+  const paramPattern = /\{(\w+)\}/g;
+  const matches = [...text.matchAll(paramPattern)];
+
+  if (matches.length === 0) {
+    return text;
+  }
+
+  // 安全地替換每個佔位符
+  matches.forEach(match => {
+    const [placeholder, paramName] = match;
+    if (params[paramName] !== undefined) {
+      const escapedValue = escapeHtml(params[paramName]);
+      result = result.replace(placeholder, escapedValue);
+    }
+  });
+
+  return result;
+};
+
+// 錯誤類別
+export class TranslationError extends Error {
+  constructor(
+    message: string,
+    public key?: string,
+    public language?: Language,
+    public params?: TranslationParams
+  ) {
+    super(message);
+    this.name = 'TranslationError';
+  }
+}
+
+// 翻譯函數 - 增強安全性和錯誤處理
 const translate = (
   key: string,
   translations: TranslationDictionary,
   language: Language,
-  params?: Record<string, string | number>
+  params?: TranslationParams,
+  onError?: (error: TranslationError) => void
 ): string => {
-  const translation = translations[key];
+  try {
+    // 驗證 key 是否為字符串
+    if (typeof key !== 'string' || key.trim() === '') {
+      throw new TranslationError('Translation key must be a non-empty string', key, language, params);
+    }
 
-  if (!translation) {
-    console.warn(`Translation key not found: ${key}`);
-    return key; // 返回 key 作為 fallback
+    const translation = translations[key];
+
+    if (!translation) {
+      const error = new TranslationError(`Translation key not found: "${key}"`, key, language, params);
+      if (onError) {
+        onError(error);
+      } else {
+        console.warn(error.message);
+      }
+      return key; // 返回 key 作為 fallback
+    }
+
+    // 獲取目標語言的翻譯
+    const targetText = translation[language] || translation['en'] || key;
+
+    // 安全的參數替換
+    return safeParamReplace(targetText, params);
+  } catch (error) {
+    // 捕獲所有可能的錯誤
+    const translationError = error instanceof TranslationError
+      ? error
+      : new TranslationError(
+          `Translation error for key "${key}": ${error instanceof Error ? error.message : String(error)}`,
+          key,
+          language,
+          params
+        );
+
+    if (onError) {
+      onError(translationError);
+    } else {
+      console.error(translationError.message);
+    }
+    return key; // 返回 key 作為安全 fallback
   }
-
-  let text = translation[language] || translation['en'] || key;
-
-  // 替換參數
-  if (params) {
-    Object.keys(params).forEach(paramKey => {
-      const paramValue = params[paramKey];
-      text = text.replace(`{${paramKey}}`, String(paramValue));
-    });
-  }
-
-  return text;
 };
 
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({
   children,
   defaultLanguage = 'en',
   storageKey = 'language',
-  translations: customTranslations
+  translations: customTranslations,
+  onError,
+  loadTranslationsOnDemand = false,
+  translationsModules = {}
 }) => {
   const [language, setLanguageState] = useState<Language>(defaultLanguage);
   const [translations, setTranslations] = useState<TranslationDictionary>(
-    customTranslations || defaultTranslations
+    customTranslations || coreTranslations
   );
   const [mounted, setMounted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<TranslationError | null>(null);
+
+  // 追蹤已載入的模組
+  const loadedModulesRef = useRef<Set<string>>(new Set());
+
+  // 處理錯誤的函數
+  const handleError = useCallback((error: TranslationError) => {
+    setError(error);
+    if (onError) {
+      onError(error);
+    } else {
+      console.error(error.message);
+    }
+  }, [onError]);
+
+  // 添加翻譯
+  const addTranslations = useCallback((newTranslations: TranslationDictionary) => {
+    setTranslations(prev => ({
+      ...prev,
+      ...newTranslations
+    }));
+  }, []);
+
+  // 動態載入翻譯模組
+  const loadTranslations = useCallback(async (moduleName: string) => {
+    if (loadedModulesRef.current.has(moduleName)) {
+      return; // 已載入，避免重複載入
+    }
+
+    const moduleLoader = translationsModules[moduleName];
+    if (!moduleLoader) {
+      handleError(new TranslationError(`Translation module "${moduleName}" not found`));
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      const module = await moduleLoader();
+      addTranslations(module.default);
+      loadedModulesRef.current.add(moduleName);
+    } catch (error) {
+      handleError(new TranslationError(
+        `Failed to load translation module "${moduleName}": ${error instanceof Error ? error.message : String(error)}`
+      ));
+    } finally {
+      setIsLoading(false);
+    }
+  }, [translationsModules, handleError, addTranslations]);
 
   // 在客戶端 mounted 後初始化 language
   useEffect(() => {
@@ -320,9 +343,18 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({
     setLanguageToLocalStorage(storageKey, language);
   }, [language, mounted, storageKey]);
 
-  // 翻譯函數
-  const t = useCallback((key: string, params?: Record<string, string | number>) => {
-    return translate(key, translations, language, params);
+  // 主要翻譯函數
+  const t = useCallback((key: string, params?: TranslationParams) => {
+    return translate(key, translations, language, params, handleError);
+  }, [translations, language, handleError]);
+
+  // 安全的翻譯函數，返回詳細資訊
+  const tSafe = useCallback((key: string, params?: TranslationParams) => {
+    let error: TranslationError | undefined;
+    const result = translate(key, translations, language, params, (err) => {
+      error = err;
+    });
+    return { text: result, error };
   }, [translations, language]);
 
   // 切換語言
@@ -335,23 +367,30 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({
     setLanguageState(newLanguage);
   }, []);
 
-  // 添加翻譯
-  const addTranslations = useCallback((newTranslations: TranslationDictionary) => {
-    setTranslations(prev => ({
-      ...prev,
-      ...newTranslations
-    }));
-  }, []);
-
   // 使用 useMemo 優化 context value
   const contextValue = useMemo(() => ({
     language,
     translations,
     t,
+    tSafe,
     toggleLanguage,
     setLanguage,
-    addTranslations
-  }), [language, translations, t, toggleLanguage, setLanguage, addTranslations]);
+    addTranslations,
+    loadTranslations,
+    isLoading,
+    error
+  }), [
+    language,
+    translations,
+    t,
+    tSafe,
+    toggleLanguage,
+    setLanguage,
+    addTranslations,
+    loadTranslations,
+    isLoading,
+    error
+  ]);
 
   return (
     <LanguageContext.Provider value={contextValue}>
@@ -372,4 +411,29 @@ export const useLanguage = () => {
 export const useTranslation = () => {
   const { t } = useLanguage();
   return t;
+};
+
+// Helper hook for safe translation needs
+export const useTranslationSafe = () => {
+  const { tSafe } = useLanguage();
+  return tSafe;
+};
+
+// Helper hook for language detection and switching
+export const useLanguageSwitcher = () => {
+  const { language, toggleLanguage, setLanguage } = useLanguage();
+
+  // 自動檢測瀏覽器語言並設置
+  const detectAndSetBrowserLanguage = useCallback(() => {
+    const browserLanguage = getBrowserLanguage();
+    setLanguage(browserLanguage);
+    return browserLanguage;
+  }, [setLanguage]);
+
+  return {
+    language,
+    toggleLanguage,
+    setLanguage,
+    detectAndSetBrowserLanguage
+  };
 };
