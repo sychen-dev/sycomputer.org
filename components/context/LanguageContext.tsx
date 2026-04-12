@@ -58,6 +58,84 @@ const coreTranslations: TranslationDictionary = {
   'text.success': {
     zh: '操作成功',
     en: 'Operation successful'
+  },
+
+  // Navigation
+  'nav.home': {
+    zh: '首頁',
+    en: 'Home'
+  },
+  'nav.about': {
+    zh: '關於公司',
+    en: 'About'
+  },
+  'nav.services': {
+    zh: '提供服務',
+    en: 'Services'
+  },
+  'nav.portfolio': {
+    zh: '建置案例',
+    en: 'Portfolio'
+  },
+  'nav.contact': {
+    zh: '聯絡我們',
+    en: 'Contact'
+  },
+  'nav.language': {
+    zh: 'EN/中文',
+    en: 'EN/中文'
+  },
+  'nav.languageSwitch': {
+    zh: '切換語言 / Switch Language',
+    en: 'Switch Language / 切換語言'
+  },
+
+  // Buttons
+  'button.learnMore': {
+    zh: '深入了解',
+    en: 'Learn More'
+  },
+  'button.consultNow': {
+    zh: '立即諮詢',
+    en: 'Consult Now'
+  },
+  'button.getQuote': {
+    zh: '獲取報價',
+    en: 'Get Quote'
+  },
+  'button.viewDetails': {
+    zh: '查看詳細資訊',
+    en: 'View Details'
+  },
+  'button.sendMessage': {
+    zh: '傳送訊息',
+    en: 'Send Message'
+  },
+  'button.subscribe': {
+    zh: '訂閱',
+    en: 'Subscribe'
+  },
+
+  // Common
+  'common.readMore': {
+    zh: '閱讀更多',
+    en: 'Read More'
+  },
+  'common.scrollDown': {
+    zh: '向下滾動',
+    en: 'Scroll Down'
+  },
+  'common.exploreMore': {
+    zh: '探索更多',
+    en: 'Explore More'
+  },
+  'common.allRightsReserved': {
+    zh: '版權所有',
+    en: 'All Rights Reserved'
+  },
+  'common.backToTop': {
+    zh: '回到頂部',
+    en: 'Back to Top'
   }
 };
 
