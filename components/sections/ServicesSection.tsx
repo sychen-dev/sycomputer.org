@@ -2,8 +2,10 @@
 
 import { motion } from 'framer-motion';
 import { Wrench, Laptop, Database, CheckCircle } from 'lucide-react';
+import { useLanguage } from '@/components/context/LanguageContext';
 
 const ServicesSection = () => {
+  const { t } = useLanguage();
   const services = [
     {
       icon: Wrench,
@@ -205,7 +207,7 @@ const ServicesSection = () => {
                     whileTap={{ scale: 0.95 }}
                     className="inline-flex items-center justify-center w-full py-3 bg-gradient-to-r from-primary/10 to-secondary/10 text-primary hover:from-primary/20 hover:to-secondary/20 rounded-lg font-medium text-sm transition-all"
                   >
-                    立即諮詢
+                    {t('button.consultNow')}
                     <span className="text-xs opacity-70 ml-2">Get Quote</span>
                   </motion.a>
                 </motion.div>
@@ -241,7 +243,7 @@ const ServicesSection = () => {
               whileTap={{ scale: 0.95 }}
               className="inline-flex items-center gap-2 bg-gradient-to-r from-primary to-primary-dark text-white px-6 py-3 rounded-full font-semibold text-sm hover-lift transition-all"
             >
-              聯絡我們討論需求
+              {t('button.consultNow')}
               <span className="text-xs opacity-80">Contact us to discuss requirements</span>
             </motion.a>
           </div>
