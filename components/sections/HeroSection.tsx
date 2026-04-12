@@ -98,7 +98,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 1.2 }}
-            className="flex justify-center mb-16"
+            className="flex justify-center mb-24"
           >
             <motion.a
               whileHover={{ scale: 1.05 }}
