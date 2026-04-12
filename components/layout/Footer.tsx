@@ -1,6 +1,6 @@
 'use client';
 
-import { Facebook, Instagram, Mail, Phone, MapPin } from 'lucide-react';
+import { Share2, MessageSquare, Mail, Phone, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/components/context/LanguageContext';
 import Link from 'next/link';
@@ -40,8 +40,8 @@ const Footer = () => {
   ];
 
   const socialLinks = [
-    { icon: Facebook, href: '#', label: 'Facebook' },
-    { icon: Instagram, href: '#', label: 'Instagram' },
+    { icon: Share2, href: '#', label: '分享' },
+    { icon: MessageSquare, href: '#', label: '訊息' },
   ];
 
   return (
