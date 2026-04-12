@@ -29,7 +29,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pb-32">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image with Parallax */}
       <motion.div
         className="absolute inset-0 z-0"
@@ -98,25 +98,16 @@ const HeroSection = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 1.2 }}
-            className="flex flex-col sm:flex-row gap-6 justify-center mb-12"
+            className="flex justify-center mb-16"
           >
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={scrollToAbout}
-              className="group inline-flex items-center justify-center gap-2 bg-primary text-white hover:bg-primary-dark px-8 py-4 rounded-full font-semibold text-lg hover-lift transition-all shadow-lg"
-            >
-              {t('button.learnMore')}
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </motion.button>
-
             <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               href="#contact"
-              className="inline-flex items-center justify-center gap-2 border-2 border-primary text-primary hover:bg-primary/10 px-8 py-4 rounded-full font-semibold text-lg transition-all"
+              className="inline-flex items-center justify-center gap-2 bg-primary text-white hover:bg-primary-dark px-10 py-5 rounded-full font-semibold text-xl hover-lift transition-all shadow-xl"
             >
               {t('button.consultNow')}
+              <ArrowRight className="w-6 h-6" />
             </motion.a>
           </motion.div>
         </motion.div>
@@ -126,19 +117,20 @@ const HeroSection = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.5 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          className="absolute bottom-12 left-1/2 transform -translate-x-1/2"
         >
           <button
             onClick={scrollToAbout}
             aria-label="Scroll down"
-            className="flex flex-col items-center text-primary/70 hover:text-primary dark:text-white/60 dark:hover:text-white transition-colors"
+            className="flex flex-col items-center text-primary hover:text-primary-dark dark:text-white/80 dark:hover:text-white transition-colors group"
           >
-            <span className="text-sm mb-2">{t('common.exploreMore')}</span>
+            <span className="text-base font-medium mb-3 opacity-90 group-hover:opacity-100">{t('common.exploreMore')}</span>
             <motion.div
-              animate={{ y: [0, 8, 0] }}
-              transition={{ repeat: Infinity, duration: 1.5 }}
+              animate={{ y: [0, 12, 0] }}
+              transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
+              className="w-10 h-10 rounded-full bg-primary/10 dark:bg-white/10 flex items-center justify-center group-hover:bg-primary/20 dark:group-hover:bg-white/20 transition-colors"
             >
-              <ChevronDown className="w-6 h-6" />
+              <ChevronDown className="w-5 h-5" />
             </motion.div>
           </button>
         </motion.div>
