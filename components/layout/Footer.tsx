@@ -25,10 +25,10 @@ const Footer = () => {
       title: "服務項目",
       enTitle: "Services",
       links: [
-        { label: "軟硬體維修", enLabel: "Hardware & Software Repair" },
-        { label: "企業設定", enLabel: "Enterprise Configuration" },
-        { label: "資料備份", enLabel: "Data Backup" },
-        { label: "技術支援", enLabel: "Technical Support" },
+        { href: "#", label: "軟硬體維修", enLabel: "Hardware & Software Repair" },
+        { href: "#", label: "企業設定", enLabel: "Enterprise Configuration" },
+        { href: "#", label: "資料備份", enLabel: "Data Backup" },
+        { href: "#", label: "技術支援", enLabel: "Technical Support" },
       ],
     },
   ];

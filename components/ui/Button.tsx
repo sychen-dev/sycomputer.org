@@ -10,6 +10,14 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'default', size = 'default', isLoading, children, ...props }, ref) => {
+    // 排除與Framer Motion衝突的props
+    const {
+      onDrag, onDragStart, onDragEnd, onDragEnter, onDragLeave, onDragOver, onDrop,
+      onAnimationStart, onAnimationEnd, onAnimationIteration,
+      onTransitionEnd,
+      ...motionProps
+    } = props;
+
     return (
       <motion.button
         whileHover={{ scale: 1.05 }}
@@ -30,7 +38,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         )}
         ref={ref}
         disabled={isLoading}
-        {...props}
+        {...motionProps}
       >
         {isLoading && (
           <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />

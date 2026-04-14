@@ -16,6 +16,16 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "聖大資訊 - 二手電腦專家 | Shangda PC",
   description: "專業的二手電腦銷售、租賃、維修與企業 IT 解決方案服務",
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-16x16.png', type: 'image/png', sizes: '16x16' },
+      { url: '/favicon-32x32.png', type: 'image/png', sizes: '32x32' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png' },
+    ],
+  },
 };
 
 export default function RootLayout({

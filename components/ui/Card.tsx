@@ -9,6 +9,14 @@ interface CardProps extends HTMLAttributes<HTMLDivElement> {
 
 const Card = forwardRef<HTMLDivElement, CardProps>(
   ({ className, hoverable = true, glass = true, children, ...props }, ref) => {
+    // 排除與Framer Motion衝突的props
+    const {
+      onDrag, onDragStart, onDragEnd, onDragEnter, onDragLeave, onDragOver, onDrop,
+      onAnimationStart, onAnimationEnd, onAnimationIteration,
+      onTransitionEnd,
+      ...motionProps
+    } = props;
+
     return (
       <motion.div
         whileHover={hoverable ? { scale: 1.02, y: -5 } : {}}
@@ -21,7 +29,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
           className
         )}
         ref={ref}
-        {...props}
+        {...motionProps}
       >
         {children}
       </motion.div>
