@@ -266,18 +266,6 @@ const PortfolioSection = () => {
                       ))}
                     </div>
                   </div>
-
-                  {/* View Details Button */}
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => window.open(item.fullImage, "_blank")}
-                    className="w-full flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-secondary/10 to-primary/10 text-secondary hover:from-secondary/20 hover:to-primary/20 rounded-lg font-medium text-sm transition-all"
-                  >
-                    {t("button.viewDetails")}
-                    <ExternalLink className="w-4 h-4" />
-                    <span className="text-xs opacity-70">View Details</span>
-                  </motion.button>
                 </div>
               </div>
             </motion.div>
