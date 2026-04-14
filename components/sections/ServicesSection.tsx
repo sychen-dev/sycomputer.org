@@ -1,73 +1,79 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { Wrench, Laptop, Database, CheckCircle } from 'lucide-react';
-import { useLanguage } from '@/components/context/LanguageContext';
+import { motion } from "framer-motion";
+import { Wrench, Laptop, Database, CheckCircle } from "lucide-react";
+import { useLanguage } from "@/components/context/LanguageContext";
 
 const ServicesSection = () => {
   const { t } = useLanguage();
   const services = [
     {
       icon: Wrench,
-      title: '軟硬體維修與維護',
-      description: '電腦主機、筆電、伺服器硬體故障排除與維修，作業系統重灌、驅動程式安裝、軟體相容性問題解決。',
-      enTitle: 'Hardware & Software Repair & Maintenance',
-      enDescription: 'Computer, laptop, server hardware troubleshooting and repair, OS reinstallation, driver installation, software compatibility issue resolution.',
+      title: "軟硬體維修與維護",
+      description:
+        "電腦主機、筆電、伺服器硬體故障排除與維修，作業系統重灌、驅動程式安裝、軟體相容性問題解決。",
+      enTitle: "Hardware & Software Repair & Maintenance",
+      enDescription:
+        "Computer, laptop, server hardware troubleshooting and repair, OS reinstallation, driver installation, software compatibility issue resolution.",
       features: [
-        '硬體故障診斷與維修',
-        '作業系統安裝與設定',
-        '軟體相容性測試',
-        '定期維護保養',
-        '遠端技術支援',
+        "硬體故障診斷與維修",
+        "作業系統安裝與設定",
+        "軟體相容性測試",
+        "定期維護保養",
+        "遠端技術支援",
       ],
       enFeatures: [
-        'Hardware fault diagnosis and repair',
-        'OS installation and configuration',
-        'Software compatibility testing',
-        'Regular maintenance',
-        'Remote technical support',
+        "Hardware fault diagnosis and repair",
+        "OS installation and configuration",
+        "Software compatibility testing",
+        "Regular maintenance",
+        "Remote technical support",
       ],
     },
     {
       icon: Laptop,
-      title: '企業軟硬體設定',
-      description: '企業級伺服器架設、網路環境配置、資料庫管理系統部署、虛擬化平台建置、資安防護設定。',
-      enTitle: 'Enterprise Hardware & Software Configuration',
-      enDescription: 'Enterprise server setup, network environment configuration, database management system deployment, virtualization platform implementation, security protection settings.',
+      title: "企業軟硬體設定",
+      description:
+        "企業級伺服器架設、網路環境配置、資料庫管理系統部署、虛擬化平台建置、資安防護設定。",
+      enTitle: "Enterprise Hardware & Software Configuration",
+      enDescription:
+        "Enterprise server setup, network environment configuration, database management system deployment, virtualization platform implementation, security protection settings.",
       features: [
-        '伺服器架設與管理',
-        '網路環境規劃',
-        '資料庫系統部署',
-        '虛擬化平台建置',
-        '資安防護設定',
+        "伺服器架設與管理",
+        "網路環境規劃",
+        "資料庫系統部署",
+        "虛擬化平台建置",
+        "資安防護設定",
       ],
       enFeatures: [
-        'Server setup and management',
-        'Network environment planning',
-        'Database system deployment',
-        'Virtualization platform implementation',
-        'Security protection settings',
+        "Server setup and management",
+        "Network environment planning",
+        "Database system deployment",
+        "Virtualization platform implementation",
+        "Security protection settings",
       ],
     },
     {
       icon: Database,
-      title: '資料備份與還原',
-      description: '企業資料備份策略規劃、自動化備份系統建置、異地備援機制、災難復原方案、資料加密保護。',
-      enTitle: 'Data Backup & Recovery',
-      enDescription: 'Enterprise data backup strategy planning, automated backup system implementation, off-site backup mechanism, disaster recovery solutions, data encryption protection.',
+      title: "資料備份與還原",
+      description:
+        "企業資料備份策略規劃、自動化備份系統建置、異地備援機制、災難復原方案、資料加密保護。",
+      enTitle: "Data Backup & Recovery",
+      enDescription:
+        "Enterprise data backup strategy planning, automated backup system implementation, off-site backup mechanism, disaster recovery solutions, data encryption protection.",
       features: [
-        '備份策略規劃',
-        '自動化備份系統',
-        '異地備援機制',
-        '災難復原方案',
-        '資料加密保護',
+        "備份策略規劃",
+        "自動化備份系統",
+        "異地備援機制",
+        "災難復原方案",
+        "資料加密保護",
       ],
       enFeatures: [
-        'Backup strategy planning',
-        'Automated backup system',
-        'Off-site backup mechanism',
-        'Disaster recovery solutions',
-        'Data encryption protection',
+        "Backup strategy planning",
+        "Automated backup system",
+        "Off-site backup mechanism",
+        "Disaster recovery solutions",
+        "Data encryption protection",
       ],
     },
   ];
@@ -119,9 +125,12 @@ const ServicesSection = () => {
             viewport={{ once: true }}
             className="text-lg text-foreground/80 max-w-3xl mx-auto"
           >
-            我們提供全方位的 IT 解決方案，從硬體維修到企業級系統建置，確保您的業務運作順暢無阻。
+            我們提供全方位的 IT
+            解決方案，從硬體維修到企業級系統建置，確保您的業務運作順暢無阻。
             <span className="block text-sm text-muted mt-2">
-              We provide comprehensive IT solutions, from hardware repair to enterprise system implementation, ensuring your business operations run smoothly.
+              We provide comprehensive IT solutions, from hardware repair to
+              enterprise system implementation, ensuring your business
+              operations run smoothly.
             </span>
           </motion.p>
         </motion.div>
@@ -177,13 +186,18 @@ const ServicesSection = () => {
                         key={feature}
                         initial={{ opacity: 0, x: -10 }}
                         whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.3, delay: 0.05 * featureIndex }}
+                        transition={{
+                          duration: 0.3,
+                          delay: 0.05 * featureIndex,
+                        }}
                         viewport={{ once: true }}
                         className="flex items-start gap-2"
                       >
                         <CheckCircle className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
                         <div className="flex-1">
-                          <span className="text-sm text-foreground/80">{feature}</span>
+                          <span className="text-sm text-foreground/80">
+                            {feature}
+                          </span>
                           <span className="block text-xs text-muted">
                             {service.enFeatures[featureIndex]}
                           </span>
@@ -192,25 +206,6 @@ const ServicesSection = () => {
                     ))}
                   </ul>
                 </div>
-
-                {/* CTA Button */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ duration: 0.4, delay: 0.1 * index + 0.4 }}
-                  viewport={{ once: true }}
-                  className="mt-8 pt-6 border-t border-border/50"
-                >
-                  <motion.a
-                    href="#contact"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="inline-flex items-center justify-center w-full py-3 bg-gradient-to-r from-primary/10 to-secondary/10 text-primary hover:from-primary/20 hover:to-secondary/20 rounded-lg font-medium text-sm transition-all"
-                  >
-                    {t('button.consultNow')}
-                    <span className="text-xs opacity-70 ml-2">Get Quote</span>
-                  </motion.a>
-                </motion.div>
               </div>
             </motion.div>
           ))}
@@ -232,9 +227,11 @@ const ServicesSection = () => {
               </span>
             </h3>
             <p className="text-foreground/80 mb-6">
-              除了標準服務外，我們也提供客製化的 IT 解決方案，根據您的業務需求量身打造最合適的技術架構。
+              除了標準服務外，我們也提供客製化的 IT
+              解決方案，根據您的業務需求量身打造最合適的技術架構。
               <span className="block text-sm text-muted mt-2">
-                In addition to standard services, we also provide customized IT solutions tailored to your business needs.
+                In addition to standard services, we also provide customized IT
+                solutions tailored to your business needs.
               </span>
             </p>
             <motion.a
@@ -243,8 +240,8 @@ const ServicesSection = () => {
               whileTap={{ scale: 0.95 }}
               className="inline-flex items-center gap-2 bg-gradient-to-r from-primary to-primary-dark text-white px-6 py-3 rounded-full font-semibold text-sm hover-lift transition-all"
             >
-              {t('button.consultNow')}
-              <span className="text-xs opacity-80">Contact us to discuss requirements</span>
+              {t("button.consultNow")}
+              <span className="text-xs opacity-80">Contact us</span>
             </motion.a>
           </div>
         </motion.div>
