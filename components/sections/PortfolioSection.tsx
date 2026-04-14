@@ -1,106 +1,110 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { ExternalLink, Building, Server, Database, Network, Shield, Users } from 'lucide-react';
-import Image from 'next/image';
-import { useState } from 'react';
-import { useLanguage } from '@/components/context/LanguageContext';
+import { motion } from "framer-motion";
+import {
+  ExternalLink,
+  Building,
+  Server,
+  Database,
+  Network,
+  Shield,
+  Users,
+} from "lucide-react";
+import Image from "next/image";
+import { useState } from "react";
+import { useLanguage } from "@/components/context/LanguageContext";
 
 const PortfolioSection = () => {
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const { t } = useLanguage();
 
   const categories = [
-    { id: 'all', label: '全部案例', enLabel: 'All Cases' },
-    { id: 'enterprise', label: '企業建置', enLabel: 'Enterprise Setup' },
-    { id: 'network', label: '網路架構', enLabel: 'Network Architecture' },
-    { id: 'security', label: '資安防護', enLabel: 'Security Protection' },
+    { id: "all", label: "全部案例", enLabel: "All Cases" },
+    { id: "enterprise", label: "企業建置", enLabel: "Enterprise Setup" },
+    { id: "network", label: "網路架構", enLabel: "Network Architecture" },
+    { id: "security", label: "資安防護", enLabel: "Security Protection" },
   ];
 
   const portfolioItems = [
+    // {
+    //   id: 1,
+    //   title: '金融科技公司伺服器架設',
+    //   description: '為金融科技新創公司建置高可用性伺服器集群，包含負載均衡、資料庫叢集與災難復原機制。',
+    //   enTitle: 'FinTech Company Server Setup',
+    //   enDescription: 'Built high-availability server cluster for fintech startup, including load balancing, database clustering, and disaster recovery mechanisms.',
+    //   category: 'enterprise',
+    //   image: '/assets/img/portfolio/thumbnails/1.jpg',
+    //   fullImage: '/assets/img/portfolio/fullsize/1.jpg',
+    //   features: ['伺服器集群', '負載均衡', '資料庫叢集', '災難復原'],
+    //   enFeatures: ['Server Cluster', 'Load Balancing', 'Database Clustering', 'Disaster Recovery'],
+    //   icon: Server,
+    // },
     {
       id: 1,
-      title: '金融科技公司伺服器架設',
-      description: '為金融科技新創公司建置高可用性伺服器集群，包含負載均衡、資料庫叢集與災難復原機制。',
-      enTitle: 'FinTech Company Server Setup',
-      enDescription: 'Built high-availability server cluster for fintech startup, including load balancing, database clustering, and disaster recovery mechanisms.',
-      category: 'enterprise',
-      image: '/assets/img/portfolio/thumbnails/1.jpg',
-      fullImage: '/assets/img/portfolio/fullsize/1.jpg',
-      features: ['伺服器集群', '負載均衡', '資料庫叢集', '災難復原'],
-      enFeatures: ['Server Cluster', 'Load Balancing', 'Database Clustering', 'Disaster Recovery'],
-      icon: Server,
-    },
-    {
-      id: 2,
-      title: '製造業網路基礎建設',
-      description: '為傳統製造業工廠建置現代化網路基礎設施，實現生產線自動化與物聯網設備連接。',
-      enTitle: 'Manufacturing Network Infrastructure',
-      enDescription: 'Built modern network infrastructure for traditional manufacturing factory, enabling production line automation and IoT device connectivity.',
-      category: 'network',
-      image: '/assets/img/portfolio/thumbnails/2.jpg',
-      fullImage: '/assets/img/portfolio/fullsize/2.jpg',
-      features: ['網路基礎建設', '生產線自動化', '物聯網連接', '工業級交換機'],
-      enFeatures: ['Network Infrastructure', 'Production Line Automation', 'IoT Connectivity', 'Industrial Switches'],
+      title: "製造業網路基礎建設",
+      description:
+        "為傳統製造業工廠建置現代化網路基礎設施，實現生產線自動化與物聯網設備連接。",
+      enTitle: "Manufacturing Network Infrastructure",
+      enDescription:
+        "Built modern network infrastructure for traditional manufacturing factory, enabling production line automation and IoT device connectivity.",
+      category: "network",
+      image: "/assets/img/portfolio/thumbnails/1.jpg",
+      fullImage: "/assets/img/portfolio/fullsize/1.jpg",
+      features: ["網路基礎建設", "生產線自動化", "物聯網連接", "工業級交換機"],
+      enFeatures: [
+        "Network Infrastructure",
+        "Production Line Automation",
+        "IoT Connectivity",
+        "Industrial Switches",
+      ],
       icon: Network,
     },
     {
       id: 3,
-      title: '醫療機構資料安全系統',
-      description: '為地區醫院建置符合醫療法規的資料安全系統，包含加密儲存、存取控制與稽核日誌。',
-      enTitle: 'Healthcare Data Security System',
-      enDescription: 'Built medical regulation-compliant data security system for regional hospital, including encrypted storage, access control, and audit logs.',
-      category: 'security',
-      image: '/assets/img/portfolio/thumbnails/3.jpg',
-      fullImage: '/assets/img/portfolio/fullsize/3.jpg',
-      features: ['資料加密', '存取控制', '稽核日誌', '法規合規'],
-      enFeatures: ['Data Encryption', 'Access Control', 'Audit Logs', 'Regulatory Compliance'],
+      title: "醫療機構資料安全系統",
+      description:
+        "為地區醫院建置符合醫療法規的資料安全系統，包含加密儲存、存取控制與稽核日誌。",
+      enTitle: "Healthcare Data Security System",
+      enDescription:
+        "Built medical regulation-compliant data security system for regional hospital, including encrypted storage, access control, and audit logs.",
+      category: "security",
+      image: "/assets/img/portfolio/thumbnails/3.jpg",
+      fullImage: "/assets/img/portfolio/fullsize/3.jpg",
+      features: ["資料加密", "存取控制", "稽核日誌", "法規合規"],
+      enFeatures: [
+        "Data Encryption",
+        "Access Control",
+        "Audit Logs",
+        "Regulatory Compliance",
+      ],
       icon: Shield,
     },
     {
       id: 4,
-      title: '教育機構雲端遷移',
-      description: '協助大學將傳統教學系統遷移至雲端平台，提升系統可用性與維護效率。',
-      enTitle: 'Educational Institution Cloud Migration',
-      enDescription: 'Assisted university in migrating traditional teaching systems to cloud platform, improving system availability and maintenance efficiency.',
-      category: 'enterprise',
-      image: '/assets/img/portfolio/thumbnails/4.jpg',
-      fullImage: '/assets/img/portfolio/fullsize/4.jpg',
-      features: ['雲端遷移', '系統現代化', '可用性提升', '維護效率'],
-      enFeatures: ['Cloud Migration', 'System Modernization', 'Availability Improvement', 'Maintenance Efficiency'],
+      title: "教育機構雲端遷移",
+      description:
+        "協助大學將傳統教學系統遷移至雲端平台，提升系統可用性與維護效率。",
+      enTitle: "Educational Institution Cloud Migration",
+      enDescription:
+        "Assisted university in migrating traditional teaching systems to cloud platform, improving system availability and maintenance efficiency.",
+      category: "enterprise",
+      image: "/assets/img/portfolio/thumbnails/4.jpg",
+      fullImage: "/assets/img/portfolio/fullsize/4.jpg",
+      features: ["雲端遷移", "系統現代化", "可用性提升", "維護效率"],
+      enFeatures: [
+        "Cloud Migration",
+        "System Modernization",
+        "Availability Improvement",
+        "Maintenance Efficiency",
+      ],
       icon: Building,
-    },
-    {
-      id: 5,
-      title: '電商平台資料庫優化',
-      description: '為大型電商平台進行資料庫效能優化，提升交易處理速度與系統穩定性。',
-      enTitle: 'E-commerce Platform Database Optimization',
-      enDescription: 'Performed database performance optimization for large e-commerce platform, improving transaction processing speed and system stability.',
-      category: 'enterprise',
-      image: '/assets/img/portfolio/thumbnails/5.jpg',
-      fullImage: '/assets/img/portfolio/fullsize/5.jpg',
-      features: ['資料庫優化', '效能調校', '交易處理', '系統穩定性'],
-      enFeatures: ['Database Optimization', 'Performance Tuning', 'Transaction Processing', 'System Stability'],
-      icon: Database,
-    },
-    {
-      id: 6,
-      title: '跨國企業協作平台',
-      description: '為跨國企業建置安全協作平台，支援多地點團隊協作與檔案共享。',
-      enTitle: 'Multinational Corporation Collaboration Platform',
-      enDescription: 'Built secure collaboration platform for multinational corporation, supporting multi-location team collaboration and file sharing.',
-      category: 'network',
-      image: '/assets/img/portfolio/thumbnails/6.jpg',
-      fullImage: '/assets/img/portfolio/fullsize/6.jpg',
-      features: ['協作平台', '多地點支援', '檔案共享', '安全通訊'],
-      enFeatures: ['Collaboration Platform', 'Multi-location Support', 'File Sharing', 'Secure Communication'],
-      icon: Users,
     },
   ];
 
-  const filteredItems = selectedCategory === 'all'
-    ? portfolioItems
-    : portfolioItems.filter(item => item.category === selectedCategory);
+  const filteredItems =
+    selectedCategory === "all"
+      ? portfolioItems
+      : portfolioItems.filter((item) => item.category === selectedCategory);
 
   return (
     <section id="portfolio" className="py-20 lg:py-32 relative overflow-hidden">
@@ -150,7 +154,8 @@ const PortfolioSection = () => {
           >
             我們為各行各業的客戶提供專業的 IT 解決方案，以下是部分成功案例展示。
             <span className="block text-sm text-muted mt-2">
-              We provide professional IT solutions for clients across various industries. Here are some of our successful case studies.
+              We provide professional IT solutions for clients across various
+              industries. Here are some of our successful case studies.
             </span>
           </motion.p>
         </motion.div>
@@ -171,12 +176,14 @@ const PortfolioSection = () => {
               onClick={() => setSelectedCategory(category.id)}
               className={`px-5 py-2.5 rounded-full font-medium transition-all ${
                 selectedCategory === category.id
-                  ? 'bg-gradient-to-r from-secondary to-secondary-dark text-white shadow-lg shadow-secondary/25'
-                  : 'glass border border-border hover:border-secondary/30 text-foreground/80 hover:text-secondary'
+                  ? "bg-gradient-to-r from-secondary to-secondary-dark text-white shadow-lg shadow-secondary/25"
+                  : "glass border border-border hover:border-secondary/30 text-foreground/80 hover:text-secondary"
               }`}
             >
               {category.label}
-              <span className="block text-xs opacity-80">{category.enLabel}</span>
+              <span className="block text-xs opacity-80">
+                {category.enLabel}
+              </span>
             </motion.button>
           ))}
         </motion.div>
@@ -208,7 +215,7 @@ const PortfolioSection = () => {
                   {/* Category Badge */}
                   <div className="absolute top-4 left-4">
                     <div className="px-3 py-1.5 rounded-full bg-black/70 backdrop-blur-sm text-white text-xs font-medium">
-                      {categories.find(c => c.id === item.category)?.label}
+                      {categories.find((c) => c.id === item.category)?.label}
                     </div>
                   </div>
                 </div>
@@ -264,10 +271,10 @@ const PortfolioSection = () => {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={() => window.open(item.fullImage, '_blank')}
+                    onClick={() => window.open(item.fullImage, "_blank")}
                     className="w-full flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-secondary/10 to-primary/10 text-secondary hover:from-secondary/20 hover:to-primary/20 rounded-lg font-medium text-sm transition-all"
                   >
-                    {t('button.viewDetails')}
+                    {t("button.viewDetails")}
                     <ExternalLink className="w-4 h-4" />
                     <span className="text-xs opacity-70">View Details</span>
                   </motion.button>
@@ -288,10 +295,26 @@ const PortfolioSection = () => {
           <div className="glass rounded-2xl p-8 border border-border">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {[
-                { value: '100+', label: '完成專案', enLabel: 'Projects Completed' },
-                { value: '50+', label: '合作企業', enLabel: 'Enterprise Clients' },
-                { value: '99%', label: '客戶滿意度', enLabel: 'Client Satisfaction' },
-                { value: '24/7', label: '技術支援', enLabel: 'Technical Support' },
+                {
+                  value: "100+",
+                  label: "完成專案",
+                  enLabel: "Projects Completed",
+                },
+                {
+                  value: "50+",
+                  label: "合作企業",
+                  enLabel: "Enterprise Clients",
+                },
+                {
+                  value: "99%",
+                  label: "客戶滿意度",
+                  enLabel: "Client Satisfaction",
+                },
+                {
+                  value: "24/7",
+                  label: "技術支援",
+                  enLabel: "Technical Support",
+                },
               ].map((stat, index) => (
                 <motion.div
                   key={stat.label}
@@ -307,9 +330,7 @@ const PortfolioSection = () => {
                   <div className="text-sm font-medium text-foreground">
                     {stat.label}
                   </div>
-                  <div className="text-xs text-muted mt-1">
-                    {stat.enLabel}
-                  </div>
+                  <div className="text-xs text-muted mt-1">{stat.enLabel}</div>
                 </motion.div>
               ))}
             </div>
