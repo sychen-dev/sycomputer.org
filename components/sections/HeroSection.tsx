@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { ArrowRight, ChevronDown } from 'lucide-react';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import { useState, useEffect } from 'react';
-import { useLanguage } from '@/components/context/LanguageContext';
+import { ArrowRight, ChevronDown } from "lucide-react";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { useState, useEffect } from "react";
+import { useLanguage } from "@/components/context/LanguageContext";
 
 const HeroSection = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -12,19 +12,20 @@ const HeroSection = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const totalScroll =
+        document.documentElement.scrollHeight - window.innerHeight;
       const currentScroll = window.scrollY;
       setScrollProgress(currentScroll / totalScroll);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollToAbout = () => {
-    const aboutSection = document.getElementById('about');
+    const aboutSection = document.getElementById("about");
     if (aboutSection) {
-      aboutSection.scrollIntoView({ behavior: 'smooth' });
+      aboutSection.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -35,7 +36,7 @@ const HeroSection = () => {
         className="absolute inset-0 z-0"
         initial={{ scale: 1.1 }}
         animate={{ scale: 1 }}
-        transition={{ duration: 1.5, ease: 'easeOut' }}
+        transition={{ duration: 1.5, ease: "easeOut" }}
         style={{
           y: scrollProgress * -100,
         }}
@@ -71,7 +72,9 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6"
           >
-            <span className="block text-white dark:text-white drop-shadow-lg">成為合作夥伴</span>
+            <span className="block text-white dark:text-white drop-shadow-lg">
+              成為合作夥伴
+            </span>
             <motion.span
               className="block text-xl sm:text-2xl md:text-3xl text-white/90 dark:text-white/90 font-light mt-4"
               initial={{ opacity: 0 }}
@@ -106,33 +109,10 @@ const HeroSection = () => {
               href="#contact"
               className="inline-flex items-center justify-center gap-2 bg-primary text-white hover:bg-primary-dark px-10 py-5 rounded-full font-semibold text-xl hover-lift transition-all shadow-xl"
             >
-              {t('button.consultNow')}
+              {t("button.consultNow")}
               <ArrowRight className="w-6 h-6" />
             </motion.a>
           </motion.div>
-        </motion.div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.5 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        >
-          <button
-            onClick={scrollToAbout}
-            aria-label="Scroll down"
-            className="flex flex-col items-center text-primary hover:text-primary-dark dark:text-white/80 dark:hover:text-white transition-colors group"
-          >
-            <span className="text-base font-medium mb-3 opacity-90 group-hover:opacity-100">{t('common.exploreMore')}</span>
-            <motion.div
-              animate={{ y: [0, 12, 0] }}
-              transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
-              className="w-10 h-10 rounded-full bg-primary/10 dark:bg-white/10 flex items-center justify-center group-hover:bg-primary/20 dark:group-hover:bg-white/20 transition-colors"
-            >
-              <ChevronDown className="w-5 h-5" />
-            </motion.div>
-          </button>
         </motion.div>
       </div>
 
@@ -146,7 +126,7 @@ const HeroSection = () => {
         transition={{
           duration: 4,
           repeat: Infinity,
-          ease: 'easeInOut',
+          ease: "easeInOut",
         }}
       />
       <motion.div
@@ -158,7 +138,7 @@ const HeroSection = () => {
         transition={{
           duration: 5,
           repeat: Infinity,
-          ease: 'easeInOut',
+          ease: "easeInOut",
           delay: 0.5,
         }}
       />

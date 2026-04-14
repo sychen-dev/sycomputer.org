@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { Share2, MessageSquare, Mail, Phone, MapPin } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { useLanguage } from '@/components/context/LanguageContext';
-import Link from 'next/link';
+import { Share2, MessageSquare, Mail, Phone, MapPin } from "lucide-react";
+import { motion } from "framer-motion";
+import { useLanguage } from "@/components/context/LanguageContext";
+import Link from "next/link";
 
 const Footer = () => {
   const { t } = useLanguage();
@@ -12,36 +12,41 @@ const Footer = () => {
 
   const footerLinks = [
     {
-      title: '快速連結',
-      enTitle: 'Quick Links',
+      title: "快速連結",
+      enTitle: "Quick Links",
       links: [
-        { href: '#about', label: '關於公司', enLabel: 'About' },
-        { href: '#services', label: '提供服務', enLabel: 'Services' },
-        { href: '#portfolio', label: '建置案例', enLabel: 'Portfolio' },
-        { href: '#contact', label: '聯絡我們', enLabel: 'Contact' },
+        { href: "#about", label: "關於公司", enLabel: "About" },
+        { href: "#services", label: "提供服務", enLabel: "Services" },
+        { href: "#portfolio", label: "建置案例", enLabel: "Portfolio" },
+        { href: "#contact", label: "聯絡我們", enLabel: "Contact" },
       ],
     },
     {
-      title: '服務項目',
-      enTitle: 'Services',
+      title: "服務項目",
+      enTitle: "Services",
       links: [
-        { label: '軟硬體維修', enLabel: 'Hardware & Software Repair' },
-        { label: '企業設定', enLabel: 'Enterprise Configuration' },
-        { label: '資料備份', enLabel: 'Data Backup' },
-        { label: '技術支援', enLabel: 'Technical Support' },
+        { label: "軟硬體維修", enLabel: "Hardware & Software Repair" },
+        { label: "企業設定", enLabel: "Enterprise Configuration" },
+        { label: "資料備份", enLabel: "Data Backup" },
+        { label: "技術支援", enLabel: "Technical Support" },
       ],
     },
   ];
 
   const contactInfo = [
-    { icon: Phone, text: '+886-926577858' },
-    { icon: Mail, text: 'qazxsw9295@gmail.com' },
-    { icon: MapPin, text: '新竹市東區大學路1001號', enText: 'No. 1001, University Rd., East Dist., Hsinchu City' },
+    { icon: Phone, text: "+886-931330086" },
+    { icon: Mail, text: "teching_chen2000@gmail.com" },
+    {
+      icon: MapPin,
+      text: "新北市土城區亞洲路11巷1弄17號",
+      enText:
+        "No. 17, Aly. 1, Ln. 11, Yazhou Rd., Tucheng Dist., New Taipei City 236042, Taiwan (R.O.C.)",
+    },
   ];
 
   const socialLinks = [
-    { icon: Share2, href: '#', label: '分享' },
-    { icon: MessageSquare, href: '#', label: '訊息' },
+    { icon: Share2, href: "#", label: "分享" },
+    { icon: MessageSquare, href: "#", label: "訊息" },
   ];
 
   return (
@@ -58,12 +63,15 @@ const Footer = () => {
             >
               <h3 className="text-2xl font-bold mb-4">
                 聖大資訊
-                <span className="block text-lg text-muted font-normal mt-1">Shangda PC</span>
+                <span className="block text-lg text-muted font-normal mt-1">
+                  Shangda PC
+                </span>
               </h3>
               <p className="text-foreground/70 mb-6">
                 專業的二手電腦銷售、租賃、維修與企業 IT 解決方案服務。
                 <span className="block text-sm text-muted mt-2">
-                  Professional used computer sales, rental, maintenance, and enterprise IT solutions.
+                  Professional used computer sales, rental, maintenance, and
+                  enterprise IT solutions.
                 </span>
               </p>
 
@@ -144,13 +152,9 @@ const Footer = () => {
                       <info.icon className="w-5 h-5 text-primary mt-0.5" />
                     </div>
                     <div>
-                      <p className="text-foreground/70">
-                        {info.text}
-                      </p>
+                      <p className="text-foreground/70">{info.text}</p>
                       {info.enText && (
-                        <p className="text-xs text-muted mt-1">
-                          {info.enText}
-                        </p>
+                        <p className="text-xs text-muted mt-1">{info.enText}</p>
                       )}
                     </div>
                   </li>
@@ -168,7 +172,7 @@ const Footer = () => {
             className="mt-12 pt-8 border-t border-border text-center"
           >
             <p className="text-foreground/60 text-sm">
-              © {currentYear} 聖大資訊有限公司. {t('common.allRightsReserved')}
+              © {currentYear} 聖大資訊有限公司. {t("common.allRightsReserved")}
               <span className="block text-xs text-muted mt-1">
                 Shangda Co., Ltd. All rights reserved.
               </span>
