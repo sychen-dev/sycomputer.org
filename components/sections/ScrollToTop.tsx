@@ -4,19 +4,13 @@ import { useState, useEffect } from 'react';
 import { ChevronUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
-import { useLanguage } from '@/components/context/LanguageContext';
 
 const ScrollToTop = () => {
-  const { t } = useLanguage();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const toggleVisibility = () => {
-      if (window.scrollY > 500) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
+      setIsVisible(window.scrollY > 500);
     };
 
     window.addEventListener('scroll', toggleVisibility);
@@ -24,10 +18,7 @@ const ScrollToTop = () => {
   }, []);
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -44,7 +35,7 @@ const ScrollToTop = () => {
             onClick={scrollToTop}
             size="icon"
             className="rounded-full shadow-lg"
-            aria-label={t('common.backToTop')}
+            aria-label="回到頂部"
           >
             <ChevronUp className="h-5 w-5" />
           </Button>
