@@ -1,45 +1,32 @@
-"use client";
+'use client';
 
-import { ArrowRight, ChevronDown } from "lucide-react";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import { useState, useEffect } from "react";
-import { useLanguage } from "@/components/context/LanguageContext";
+import { ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import { useState, useEffect } from 'react';
 
 const HeroSection = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
-  const { t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
-      const totalScroll =
-        document.documentElement.scrollHeight - window.innerHeight;
+      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
       const currentScroll = window.scrollY;
       setScrollProgress(currentScroll / totalScroll);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const scrollToAbout = () => {
-    const aboutSection = document.getElementById("about");
-    if (aboutSection) {
-      aboutSection.scrollIntoView({ behavior: "smooth" });
-    }
-  };
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image with Parallax */}
       <motion.div
         className="absolute inset-0 z-0"
         initial={{ scale: 1.1 }}
         animate={{ scale: 1 }}
-        transition={{ duration: 1.5, ease: "easeOut" }}
-        style={{
-          y: scrollProgress * -100,
-        }}
+        transition={{ duration: 1.5, ease: 'easeOut' }}
+        style={{ y: scrollProgress * -100 }}
       >
         <Image
           src="/assets/img/bg-masthead.jpg"
@@ -53,12 +40,10 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-secondary/10" />
       </motion.div>
 
-      {/* Glass Effect Overlay */}
       <div className="absolute inset-0 z-1">
         <div className="absolute inset-0 glass opacity-50" />
       </div>
 
-      {/* Content */}
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -103,44 +88,26 @@ const HeroSection = () => {
             transition={{ duration: 0.5, delay: 1.2 }}
             className="flex justify-center mb-24"
           >
-            <motion.a
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            <a
               href="#contact"
-              className="inline-flex items-center justify-center gap-2 bg-primary text-white hover:bg-primary-dark px-10 py-5 rounded-full font-semibold text-xl hover-lift transition-all shadow-xl"
+              className="inline-flex items-center justify-center gap-2 bg-primary text-white hover:bg-primary-dark px-10 py-5 rounded-full font-semibold text-xl hover-lift transition-all shadow-xl hover:scale-105 active:scale-95"
             >
-              {t("button.consultNow")}
+              立即諮詢
               <ArrowRight className="w-6 h-6" />
-            </motion.a>
+            </a>
           </motion.div>
         </motion.div>
       </div>
 
-      {/* Floating Elements */}
       <motion.div
         className="absolute top-1/4 left-1/4 w-24 h-24 rounded-full bg-gradient-to-br from-primary/20 to-transparent border border-primary/30"
-        animate={{
-          y: [0, -20, 0],
-          x: [0, 10, 0],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+        animate={{ y: [0, -20, 0], x: [0, 10, 0] }}
+        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
       />
       <motion.div
         className="absolute bottom-1/4 right-1/4 w-16 h-16 rounded-full bg-gradient-to-tr from-secondary/20 to-transparent border border-secondary/30"
-        animate={{
-          y: [0, 20, 0],
-          x: [0, -10, 0],
-        }}
-        transition={{
-          duration: 5,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 0.5,
-        }}
+        animate={{ y: [0, 20, 0], x: [0, -10, 0] }}
+        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
       />
     </section>
   );
