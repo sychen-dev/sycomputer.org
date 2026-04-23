@@ -1,16 +1,21 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { useLanguage } from '@/components/context/LanguageContext';
 import { ThemeToggle } from './ThemeToggle';
+
+const navItems = [
+  { href: '#about', label: '關於公司' },
+  { href: '#services', label: '提供服務' },
+  { href: '#portfolio', label: '建置案例' },
+  { href: '#contact', label: '聯絡我們' },
+];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { language, toggleLanguage, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,19 +25,9 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navItems = [
-    { href: '#about', label: t('nav.about'), enLabel: 'About' },
-    { href: '#services', label: t('nav.services'), enLabel: 'Services' },
-    { href: '#portfolio', label: t('nav.portfolio'), enLabel: 'Portfolio' },
-    { href: '#contact', label: t('nav.contact'), enLabel: 'Contact' },
-  ];
-
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 animate-slide-down ${
         scrolled
           ? 'glass border-b border-border/50 py-3'
           : 'bg-transparent py-5'
@@ -40,7 +35,6 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Logo */}
           <Link
             href="/"
             className="text-2xl font-bold tracking-tight text-foreground hover:text-primary transition-colors"
@@ -49,7 +43,6 @@ const Navbar = () => {
             <span className="block text-sm font-normal text-muted">Shangda PC</span>
           </Link>
 
-          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
             {navItems.map((item) => (
               <a
@@ -61,23 +54,9 @@ const Navbar = () => {
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
               </a>
             ))}
-
-            {/* Language Toggle */}
-            <button
-              onClick={toggleLanguage}
-              className="flex items-center space-x-2 text-foreground/80 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-foreground/5"
-            >
-              <Globe className="w-5 h-5" />
-              <span className="font-medium">
-                {language === 'zh' ? 'EN' : '中文'}
-              </span>
-            </button>
-
-            {/* Theme Toggle */}
             <ThemeToggle />
           </div>
 
-          {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center gap-4">
             <ThemeToggle />
             <button
@@ -90,7 +69,6 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Menu */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -111,21 +89,12 @@ const Navbar = () => {
                     {item.label}
                   </a>
                 ))}
-                <div className="pt-4 border-t border-border">
-                  <button
-                    onClick={toggleLanguage}
-                    className="flex items-center space-x-2 text-foreground hover:text-primary transition-colors w-full py-2"
-                  >
-                    <Globe className="w-5 h-5" />
-                    <span className="font-medium">{t('nav.languageSwitch')}</span>
-                  </button>
-                </div>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
-    </motion.nav>
+    </nav>
   );
 };
 
