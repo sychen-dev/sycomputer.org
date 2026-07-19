@@ -1,4 +1,4 @@
-import { forwardRef, TextareaHTMLAttributes } from 'react';
+import { forwardRef, TextareaHTMLAttributes, useId } from 'react';
 import { cn } from '@/lib/utils';
 
 interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -8,38 +8,34 @@ interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 
 const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
   ({ className, label, error, id, ...props }, ref) => {
-    const textareaId = id || `textarea-${Math.random().toString(36).substr(2, 9)}`;
+    const reactId = useId();
+    const textareaId = id ?? reactId;
 
     return (
       <div className="space-y-2">
         {label && (
-          <label
-            htmlFor={textareaId}
-            className="text-sm font-medium text-foreground/80"
-          >
+          <label htmlFor={textareaId} className="block text-sm font-medium">
             {label}
           </label>
         )}
         <textarea
           id={textareaId}
           className={cn(
-            'flex min-h-[120px] w-full rounded-lg border border-border bg-background px-4 py-3 text-sm transition-colors',
-            'placeholder:text-muted',
-            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
+            'min-h-[120px] w-full rounded-md border border-line bg-paper px-3.5 py-3 text-sm transition-colors',
+            'placeholder:text-soft/70',
+            'hover:border-soft focus:border-accent',
             'disabled:cursor-not-allowed disabled:opacity-50',
             'resize-none',
-            error && 'border-red-500 focus-visible:ring-red-500',
-            className
+            error && 'border-red-500',
+            className,
           )}
           ref={ref}
           {...props}
         />
-        {error && (
-          <p className="text-sm text-red-500">{error}</p>
-        )}
+        {error && <p className="text-sm text-red-500">{error}</p>}
       </div>
     );
-  }
+  },
 );
 
 TextArea.displayName = 'TextArea';

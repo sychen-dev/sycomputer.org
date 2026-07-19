@@ -1,4 +1,4 @@
-import { forwardRef, InputHTMLAttributes } from 'react';
+import { forwardRef, InputHTMLAttributes, useId } from 'react';
 import { cn } from '@/lib/utils';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -8,15 +8,13 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, label, error, id, ...props }, ref) => {
-    const inputId = id || `input-${Math.random().toString(36).substr(2, 9)}`;
+    const reactId = useId();
+    const inputId = id ?? reactId;
 
     return (
       <div className="space-y-2">
         {label && (
-          <label
-            htmlFor={inputId}
-            className="text-sm font-medium text-foreground/80"
-          >
+          <label htmlFor={inputId} className="block text-sm font-medium">
             {label}
           </label>
         )}
@@ -24,23 +22,20 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           type={type}
           id={inputId}
           className={cn(
-            'flex h-12 w-full rounded-lg border border-border bg-background px-4 py-3 text-sm transition-colors',
-            'file:border-0 file:bg-transparent file:text-sm file:font-medium',
-            'placeholder:text-muted',
-            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
+            'h-11 w-full rounded-md border border-line bg-paper px-3.5 text-sm transition-colors',
+            'placeholder:text-soft/70',
+            'hover:border-soft focus:border-accent',
             'disabled:cursor-not-allowed disabled:opacity-50',
-            error && 'border-red-500 focus-visible:ring-red-500',
-            className
+            error && 'border-red-500',
+            className,
           )}
           ref={ref}
           {...props}
         />
-        {error && (
-          <p className="text-sm text-red-500">{error}</p>
-        )}
+        {error && <p className="text-sm text-red-500">{error}</p>}
       </div>
     );
-  }
+  },
 );
 
 Input.displayName = 'Input';

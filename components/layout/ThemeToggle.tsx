@@ -2,37 +2,18 @@
 
 import { Moon, Sun } from 'lucide-react';
 import { useTheme } from '@/components/context/ThemeContext';
-import { Button } from '@/components/ui/Button';
-import { motion } from 'framer-motion';
 
 export function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <Button
-      variant="ghost"
-      size="icon"
+    <button
+      type="button"
       onClick={toggleTheme}
-      aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-      className="relative"
+      aria-label={theme === 'light' ? '切換為深色模式' : '切換為淺色模式'}
+      className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-line text-soft transition-colors hover:border-soft hover:text-ink"
     >
-      <motion.div
-        key={theme}
-        initial={{ scale: 0.8, opacity: 0, rotate: -90 }}
-        animate={{ scale: 1, opacity: 1, rotate: 0 }}
-        exit={{ scale: 0.8, opacity: 0, rotate: 90 }}
-        transition={{ duration: 0.2 }}
-        className="absolute"
-      >
-        {theme === 'light' ? (
-          <Moon className="h-5 w-5" />
-        ) : (
-          <Sun className="h-5 w-5" />
-        )}
-      </motion.div>
-      <span className="sr-only">
-        {theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
-      </span>
-    </Button>
+      {theme === 'light' ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+    </button>
   );
 }

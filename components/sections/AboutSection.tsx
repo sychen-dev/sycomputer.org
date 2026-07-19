@@ -3,6 +3,47 @@
 import { Shield, TrendingDown, Zap } from 'lucide-react';
 import { useScrollReveal } from '@/lib/useScrollReveal';
 
+const features = [
+  {
+    icon: Shield,
+    title: '安全穩定的系統環境',
+    description: '企業級的安全設定與穩定性,開機就能上工。',
+  },
+  {
+    icon: TrendingDown,
+    title: '更低的建置成本',
+    description: '相比全新設備大幅節省預算,把錢留給本業。',
+  },
+  {
+    icon: Zap,
+    title: '更佳的軟體適配',
+    description: '為企業應用軟體調校的運行與測試環境。',
+  },
+];
+
+const steps = [
+  {
+    number: '01',
+    title: '需求評估',
+    description: '了解用途與預算,建議合適的機型與配置。',
+  },
+  {
+    number: '02',
+    title: '檢測整備',
+    description: '硬體逐項檢測、系統重灌、清潔與零件更換。',
+  },
+  {
+    number: '03',
+    title: '交機驗收',
+    description: '依規格逐項確認機況,清點後交機。',
+  },
+  {
+    number: '04',
+    title: '保固支援',
+    description: '保固期內免費維修,並提供遠端技術支援。',
+  },
+];
+
 const stats = [
   { value: '50%', label: '平均節省成本' },
   { value: '100+', label: '服務企業' },
@@ -10,91 +51,89 @@ const stats = [
   { value: '99%', label: '客戶滿意度' },
 ];
 
-const features = [
-  {
-    icon: Shield,
-    title: '安全的作業系統',
-    description: '企業級安全防護與穩定性',
-  },
-  {
-    icon: TrendingDown,
-    title: '降低硬體成本',
-    description: '相比全新設備節省大量預算',
-  },
-  {
-    icon: Zap,
-    title: '優化軟體運行',
-    description: '提升企業應用軟體性能',
-  },
-];
-
 const AboutSection = () => {
   const sectionRef = useScrollReveal();
 
   return (
-    <section id="about" className="py-20 lg:py-32 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background" />
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+    <section id="about" className="border-t border-line py-20 lg:py-28">
+      <div ref={sectionRef} className="reveal-group mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="reveal-item max-w-2xl">
+          <p className="eyebrow">關於聖大</p>
+          <h2 className="mt-5 text-3xl font-black tracking-tight sm:text-4xl">
+            一半的預算,
+            <br className="sm:hidden" />
+            一樣的生產力。
+          </h2>
+        </div>
 
-      <div ref={sectionRef} className="container relative mx-auto px-4 sm:px-6 lg:px-8 reveal">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          <div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-medium mb-6">
-              <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-              關於我們
-            </div>
-
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
-              我們提供了
-            </h2>
-
-            <p className="text-lg text-foreground/80 mb-8">
-              在我們服務下，您可以滿足您想要的需求，更安全的作業系統、硬體維修、企業應用技術支援。此外，我們能替您的企業應用軟體提供更佳的運行環境，以及更穩定的測試環境，更重要的是我們平均為客戶省下50%的硬體建置成本。
+        <div className="mt-12 grid gap-14 lg:grid-cols-2 lg:gap-20">
+          <div className="reveal-item" style={{ '--rd': '80ms' } as React.CSSProperties}>
+            <p className="text-base leading-relaxed text-soft">
+              我們專注一件事:讓檢測過的二手電腦,取代不必要的全新採購。從作業系統的安全設定、硬體維修,到企業應用的技術支援,提供穩定的運行與測試環境,平均為客戶省下
+              50% 的硬體建置成本。
             </p>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
-              {stats.map((stat) => (
-                <div key={stat.label} className="text-center">
-                  <div className="text-3xl font-bold text-primary mb-1">
-                    {stat.value}
+            <ul className="mt-9 space-y-6">
+              {features.map((feature) => (
+                <li key={feature.title} className="flex items-start gap-4">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-line text-accent">
+                    <feature.icon className="h-5 w-5" />
+                  </span>
+                  <div>
+                    <h3 className="font-bold">{feature.title}</h3>
+                    <p className="mt-1 text-sm leading-relaxed text-soft">
+                      {feature.description}
+                    </p>
                   </div>
-                  <div className="text-sm font-medium text-foreground">
-                    {stat.label}
-                  </div>
-                </div>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
 
-          <div className="space-y-6">
-            {features.map((feature) => (
-              <div key={feature.title} className="group">
-                <div className="glass rounded-2xl p-6 border border-border hover:border-primary/30 transition-all hover-lift hover:translate-x-2">
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0">
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center group-hover:from-primary/30 group-hover:to-secondary/30 transition-all">
-                        <feature.icon className="w-6 h-6 text-primary" />
-                      </div>
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-                      <p className="text-foreground/70 text-sm">{feature.description}</p>
-                    </div>
+          <div className="reveal-item" style={{ '--rd': '160ms' } as React.CSSProperties}>
+            <p className="font-mono text-xs tracking-[0.15em] text-soft">
+              每台機器的必經流程
+            </p>
+            <ol className="mt-6">
+              {steps.map((step, index) => (
+                <li
+                  key={step.number}
+                  className={`relative flex gap-5 border-l border-line pl-7 ${
+                    index === steps.length - 1 ? 'pb-0' : 'pb-8'
+                  }`}
+                >
+                  <span
+                    aria-hidden
+                    className="absolute -left-[5px] top-1.5 h-2.5 w-2.5 bg-accent"
+                  />
+                  <div>
+                    <span className="font-mono text-xs font-medium text-accent">
+                      {step.number}
+                    </span>
+                    <h3 className="mt-0.5 font-bold">{step.title}</h3>
+                    <p className="mt-1 text-sm leading-relaxed text-soft">
+                      {step.description}
+                    </p>
                   </div>
-                </div>
-              </div>
-            ))}
-
-            <div className="mt-10">
-              <a
-                href="#services"
-                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-primary to-primary-dark text-white px-8 py-4 rounded-full font-semibold text-lg hover-lift transition-all shadow-lg shadow-primary/25 hover:scale-105 active:scale-95"
-              >
-                深入了解
-              </a>
-            </div>
+                </li>
+              ))}
+            </ol>
           </div>
         </div>
+
+        <dl
+          className="reveal-item mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line md:grid-cols-4"
+          style={{ '--rd': '240ms' } as React.CSSProperties}
+        >
+          {stats.map((stat) => (
+            <div key={stat.label} className="bg-card px-6 py-7 text-center">
+              <dd className="font-mono text-3xl font-semibold tracking-tight">
+                {stat.value}
+              </dd>
+              <dt className="mt-1.5 text-xs text-soft">{stat.label}</dt>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
   );

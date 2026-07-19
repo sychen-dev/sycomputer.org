@@ -1,21 +1,25 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Noto_Sans_TC, IBM_Plex_Mono } from "next/font/google";
 import { Providers } from "@/app/providers";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const notoSansTC = Noto_Sans_TC({
+  variable: "--font-noto-sans-tc",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "聖大資訊 - 二手電腦專家 | Shangda PC",
-  description: "專業的二手電腦銷售、租賃、維修與企業 IT 解決方案服務",
+  title: "聖大資訊 Shangda PC|二手電腦銷售・租賃・維修",
+  description:
+    "新北土城的二手電腦專門店。商用電腦銷售與租賃、維修保養、企業 IT 建置,出貨前完成檢測整備,購買與租賃均含免費保固,平均為企業省下 50% 硬體建置成本。",
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
@@ -35,8 +39,8 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="zh"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      lang="zh-Hant-TW"
+      className={`${notoSansTC.variable} ${plexMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>
@@ -44,28 +48,24 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
+                var root = document.documentElement;
+                root.classList.add('js');
+
                 function getInitialTheme() {
-                  const persistedTheme = localStorage.getItem('theme');
-                  const hasPersistedPreference = typeof persistedTheme === 'string';
-
-                  if (hasPersistedPreference) {
-                    return persistedTheme;
+                  try {
+                    var persistedTheme = localStorage.getItem('theme');
+                    if (persistedTheme === 'light' || persistedTheme === 'dark') {
+                      return persistedTheme;
+                    }
+                    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                  } catch (e) {
+                    return 'light';
                   }
-
-                  const mql = window.matchMedia('(prefers-color-scheme: dark)');
-                  const hasMediaQueryPreference = typeof mql.matches === 'boolean';
-
-                  if (hasMediaQueryPreference) {
-                    return mql.matches ? 'dark' : 'light';
-                  }
-
-                  return 'light';
                 }
 
-                const theme = getInitialTheme();
-                const root = document.documentElement;
+                var theme = getInitialTheme();
                 root.classList.add(theme);
-                localStorage.setItem('theme', theme);
+                try { localStorage.setItem('theme', theme); } catch (e) {}
               })();
             `,
           }}

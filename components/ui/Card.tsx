@@ -3,19 +3,16 @@ import { cn } from '@/lib/utils';
 
 interface CardProps extends HTMLAttributes<HTMLDivElement> {
   hoverable?: boolean;
-  glass?: boolean;
 }
 
 const Card = forwardRef<HTMLDivElement, CardProps>(
-  ({ className, hoverable = true, glass = true, children, ...props }, ref) => {
+  ({ className, hoverable = false, children, ...props }, ref) => {
     return (
       <div
         className={cn(
-          'rounded-2xl border border-border transition-all',
-          {
-            'glass hover:border-primary/30 hover-lift': glass,
-            'bg-card': !glass,
-          },
+          'rounded-lg border border-line bg-card',
+          hoverable &&
+            'transition-all duration-200 hover:-translate-y-0.5 hover:border-soft hover:shadow-[0_12px_32px_-16px_rgb(0_0_0/0.25)]',
           className,
         )}
         ref={ref}

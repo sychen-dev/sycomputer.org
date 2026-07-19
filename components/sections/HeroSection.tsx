@@ -1,114 +1,127 @@
-'use client';
+import { ArrowRight, Check, Phone } from 'lucide-react';
 
-import { ArrowRight } from 'lucide-react';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import { useState, useEffect } from 'react';
+const specs = [
+  { label: '品項', value: '商用桌上型主機' },
+  { label: '處理器', value: 'Intel Core i5' },
+  { label: '記憶體', value: '16GB DDR4' },
+  { label: '儲存', value: '512GB SSD' },
+];
+
+const checks = ['CPU 壓力測試', '記憶體完整測試', '硬碟健康度檢查', '系統重灌與更新'];
+
+const facts = [
+  { value: '50%', label: '平均省下的建置成本' },
+  { value: '100+', label: '服務中的企業客戶' },
+  { value: '含保固', label: '購買與租賃均免費' },
+];
 
 const HeroSection = () => {
-  const [scrollProgress, setScrollProgress] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
-      const currentScroll = window.scrollY;
-      setScrollProgress(currentScroll / totalScroll);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <motion.div
-        className="absolute inset-0 z-0"
-        initial={{ scale: 1.1 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 1.5, ease: 'easeOut' }}
-        style={{ y: scrollProgress * -100 }}
-      >
-        <Image
-          src="/assets/img/bg-masthead.jpg"
-          alt="Computer hardware background"
-          fill
-          className="object-cover"
-          priority
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/50 to-background/80 dark:from-background/30 dark:via-background/60 dark:to-background/90" />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-secondary/10" />
-      </motion.div>
+    <section className="dot-grid relative overflow-hidden">
+      <div className="mx-auto grid max-w-6xl items-center gap-14 px-4 pb-20 pt-32 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:pb-28 lg:pt-40">
+        <div>
+          <p className="eyebrow rise">新北土城・二手電腦專門</p>
 
-      <div className="absolute inset-0 z-1">
-        <div className="absolute inset-0 glass opacity-50" />
-      </div>
+          <h1 className="rise rise-1 mt-6 text-4xl font-black leading-[1.18] tracking-tight sm:text-5xl lg:text-[3.4rem]">
+            好電腦,
+            <br />
+            不必是新電腦。
+          </h1>
 
-      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="max-w-4xl mx-auto"
-        >
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6"
-          >
-            <span className="block text-white dark:text-white drop-shadow-lg">
-              成為合作夥伴
-            </span>
-            <motion.span
-              className="block text-xl sm:text-2xl md:text-3xl text-white/90 dark:text-white/90 font-light mt-4"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 0.8 }}
-            >
-              Let us save for you on IT investment
-            </motion.span>
-          </motion.h1>
+          <p className="rise rise-2 mt-6 max-w-xl text-base leading-relaxed text-soft sm:text-lg">
+            聖大資訊專營二手電腦銷售、租賃與維修。每台機器出貨前完成檢測整備,購買與租賃均含免費保固,平均為企業省下
+            50% 硬體建置成本。
+          </p>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1 }}
-            className="text-lg sm:text-xl text-white/80 dark:text-white/80 mb-10 max-w-2xl mx-auto"
-          >
-            短期需要電腦嗎？可以用租的。
-            <span className="block mt-2 text-sm text-white/60 dark:text-white/60">
-              Need a computer in the short term? Can be rented.
-            </span>
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 1.2 }}
-            className="flex justify-center mb-24"
-          >
+          <div className="rise rise-3 mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
             <a
               href="#contact"
-              className="inline-flex items-center justify-center gap-2 bg-primary text-white hover:bg-primary-dark px-10 py-5 rounded-full font-semibold text-xl hover-lift transition-all shadow-xl hover:scale-105 active:scale-95"
+              className="inline-flex items-center gap-2 rounded-md bg-accent px-6 py-3 text-base font-medium text-on-accent transition-colors hover:bg-accent-strong"
             >
-              立即諮詢
-              <ArrowRight className="w-6 h-6" />
+              取得報價
+              <ArrowRight className="h-4 w-4" />
             </a>
-          </motion.div>
-        </motion.div>
-      </div>
+            <a
+              href="tel:+886931330086"
+              className="inline-flex items-center gap-2.5 font-mono text-lg font-medium text-ink transition-colors hover:text-accent"
+            >
+              <Phone className="h-4 w-4 text-accent" />
+              0931-330-086
+            </a>
+          </div>
 
-      <motion.div
-        className="absolute top-1/4 left-1/4 w-24 h-24 rounded-full bg-gradient-to-br from-primary/20 to-transparent border border-primary/30"
-        animate={{ y: [0, -20, 0], x: [0, 10, 0] }}
-        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      <motion.div
-        className="absolute bottom-1/4 right-1/4 w-16 h-16 rounded-full bg-gradient-to-tr from-secondary/20 to-transparent border border-secondary/30"
-        animate={{ y: [0, 20, 0], x: [0, -10, 0] }}
-        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-      />
+          <dl className="rise rise-4 mt-14 grid max-w-md grid-cols-3 gap-x-6 border-t border-line pt-6">
+            {facts.map((fact) => (
+              <div key={fact.label} className="flex flex-col">
+                <dt className="order-last mt-1.5 text-xs leading-snug text-soft">
+                  {fact.label}
+                </dt>
+                <dd className="font-mono text-2xl font-semibold tracking-tight">
+                  {fact.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+
+        <div className="rise rise-2 lg:justify-self-end">
+          <div className="tag-tilt relative w-full max-w-sm">
+            <div className="relative rounded-lg border border-line bg-card p-6 shadow-[0_28px_56px_-28px_rgb(26_33_28/0.4)]">
+              <span aria-hidden className="tag-hole absolute right-5 top-5" />
+
+              <p className="font-mono text-[11px] tracking-[0.2em] text-soft">
+                REFURB RECORD
+              </p>
+              <h2 className="mt-1.5 text-xl font-black tracking-tight">整備檢測紀錄</h2>
+              <p className="mt-1 font-mono text-xs text-soft">NO. SD-25-0416</p>
+
+              <div className="my-5 border-t border-dashed border-line" />
+
+              <dl className="space-y-2.5">
+                {specs.map((spec) => (
+                  <div key={spec.label} className="flex items-baseline justify-between gap-4">
+                    <dt className="shrink-0 text-xs text-soft">{spec.label}</dt>
+                    <dd className="font-mono text-sm">{spec.value}</dd>
+                  </div>
+                ))}
+              </dl>
+
+              <div className="my-5 border-t border-dashed border-line" />
+
+              <ul className="space-y-2.5">
+                {checks.map((check) => (
+                  <li key={check} className="flex items-center justify-between gap-4">
+                    <span className="flex items-center gap-2.5 text-sm">
+                      <span className="flex h-4 w-4 items-center justify-center bg-accent/10 text-accent">
+                        <Check className="h-3 w-3" strokeWidth={3} />
+                      </span>
+                      {check}
+                    </span>
+                    <span className="font-mono text-[11px] font-medium text-accent">
+                      PASS
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="my-5 border-t border-dashed border-line" />
+
+              <div className="flex items-center justify-between gap-4">
+                <span className="bg-seal px-2.5 py-1 font-mono text-xs font-semibold text-seal-ink">
+                  含免費保固
+                </span>
+                <span className="font-mono text-xs text-soft">價格・來電報價</span>
+              </div>
+
+              <div aria-hidden className="barcode mt-5" />
+            </div>
+
+            <p className="mt-4 text-center font-mono text-xs text-soft">
+              每台出貨機,都有一張這樣的紀錄
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
   );
 };
