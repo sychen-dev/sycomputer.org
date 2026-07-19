@@ -20,16 +20,6 @@ export const metadata: Metadata = {
   title: "聖大資訊 Shangda PC|二手電腦銷售・租賃・維修",
   description:
     "新北土城的二手電腦專門店。商用電腦銷售與租賃、維修保養、企業 IT 建置,出貨前完成檢測整備,購買與租賃均含免費保固,平均為企業省下 50% 硬體建置成本。",
-  icons: {
-    icon: [
-      { url: '/favicon.ico', sizes: 'any' },
-      { url: '/favicon-16x16.png', type: 'image/png', sizes: '16x16' },
-      { url: '/favicon-32x32.png', type: 'image/png', sizes: '32x32' },
-    ],
-    apple: [
-      { url: '/apple-touch-icon.png' },
-    ],
-  },
 };
 
 export default function RootLayout({
